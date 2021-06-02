@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if(!User.Identity.IsAuthenticated)
+{
+    <p>This is landing page, Please login.</p>
+}
+else
+{
+    <p>@ViewBag.Message</p>
+}

@@ -1,0 +1,43 @@
+﻿@page "/accesstoken"
+
+@using CodeGenerator.Sample.Server.BlazorWebApp.Models
+@using CodeGenerator.Sample.Server.BlazorWebApp.Services
+
+<h1>Access Token Claims</h1>
+
+@if (claimsList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Kay</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in claimsList)
+            {
+                <tr>
+                    @*<td>@claim.Key</td>
+                    <td>@claim.Value</td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public IAccessTokenService AccessTokenService { get; set; }
+
+    private IEnumerable<AccessTokenData> claimsList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        claimsList = await AccessTokenService.GetAccessTokenDataAsync();
+    }
+}
